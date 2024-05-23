@@ -1,6 +1,37 @@
 <?php
 require("header-inc.php");
+require_once('connection.php');
 	
+if(isset($_GET['id'])) {
+	$id = $_GET['id'];
+	$mysql_query = "SELECT * FROM contatos WHERE id=$id";
+	$result = $conn->query($mysql_query);
+	$row = mysqli_fetch_assoc($result);
+}
+
+// echo "<pre>";
+// print_r($row);
+// echo "</pre>";
+
+if (isset($_POST['enviar'])) {
+
+	$id = $_POST['id'];
+	$nome = $_POST['nome'];
+	$email = $_POST['email'];
+	$datanasc = $_POST['datanasc'];
+
+	$mysql_query = "UPDATE contatos SET nome='{$nome}',email={$email},datanasc={$datanasc} WHERE id={$id}"; 
+
+	if ($conn->query($mysql_query) === TRUE) {
+		$msg = "update success";
+		$msgerror  = "";
+	} else {
+		$msg = "update error";
+		$msgerror = $conn->error;
+	}
+	header("Location: contatos.php?msg={$msg}&msgerror={$msgerror}");
+}	
+mysqli_close($conn);
 ?>
 <div class="container">
 	<h2>Contatos</h2>
