@@ -48,27 +48,27 @@ INSERT INTO patio (num, ender, capacidade) VALUES (1, 'Rua das Flores, 123', 50)
 
 INSERT INTO estaciona (dtEntrada, dtSaida, hsEntrada, hsSaida, Patio_num, Veiculo_placa) VALUES ('2023-05-23', '2023-05-24', '08:00', '18:00', 1, 'ABC-1234')('2023-05-24', '2023-05-25', '09:00', '19:00', 2, 'XYZ-5678'),('2023-05-25', '2023-05-26', '10:00', '20:00', 3, 'DBI-1010') , ('2023-05-26', '2023-05-27', '11:00', '21:00', 4, 'ADS-2024');
 
-SELECT veiculo.placa, cliente.nome, modelo.Desc_2
-FROM veiculo
-INNER JOIN cliente ON veiculo.Cliente_cpf = cliente.cpf
-INNER JOIN modeloON veiculo.Modelo_codMod = modelo.codMod;
+SELECT v.placa, c.nome, m.Desc_2
+FROM veiculo v
+INNER JOIN cliente c ON v.Cliente_cpf = c.cpf
+INNER JOIN modelo m ON v.Modelo_codMod = m.codMod;
 
-SELECT veiculo.placa, cliente.nome, modelo.Desc_2
-FROM veiculo
-INNER JOIN cliente ON veiculo.Cliente_cpf = cliente.cpf
-INNER JOIN modelo ON veiculo.Modelo_codMOdMod = modelo.codMod
-INNER JOIN estaciona ON veiculo.placa = estaciona.Veiculo_placa
-WHERE estaciona.dtEntrada >= '2023-05-01' AND estaciona.tSaida <= '2023-05-31';
+SELECT v.placa, c.nome, m.Desc_2
+FROM veiculo v
+INNER JOIN cliente c ON v.Cliente_cpf = c.cpf
+INNER JOIN modelo m ON v.Modelo_codMOdMod = m.codMod
+INNER JOIN estaciona e ON v.placa = e.Veiculo_placa
+WHERE e.dtEntrada LIKE '2023-05-%';
 
-SELECT cliente.cpf, cliente.nome 
-FROM cliente
-INNER JOIN veiculo ON cliente.cpf = veiculo.Cliente_cpf
-WHERE veiculo.placa = 'ADS-2024';
+SELECT c.cpf, c.nome 
+FROM cliente c
+INNER JOIN veiculo v ON c.cpf = v.Cliente_cpf
+WHERE v.placa = 'ADS-2024';
 
-SELECT veiculo.placa
-FROM veiculo
-INNER JOIN estaciona ON veiculo.placa = estaciona.Veiculo_placa
-WHERE estaciona.cod = 1;
+SELECT v.placa
+FROM veiculo v
+INNER JOIN estaciona e ON v.placa = e.Veiculo_placa
+WHERE e.cod = 1;
 
 
 -- NÃO HÁ COLUNA ANO 
@@ -77,62 +77,67 @@ WHERE estaciona.cod = 1;
 -- INNER JOIN modelo ON veiculo.Modelo_codMod = modelo.codMod
 -- WHERE veiculo.placa >= 2020; 
 
-SELECT patio.ender, estaciona.dtEntrada, estaciona.dtSaida
-FROM patio
-INNER JOIN estaciona ON patio.num = estaciona.Patio_num
-INNER JOIN veiculo ON estaciona.Veiculo_placa = veiculo.placa
-WHERE veiculo.placa = 'DBI-1010';
+SELECT p.ender, e.dtEntrada, e.dtSaida
+FROM patio p 
+INNER JOIN estaciona e ON p.num = e.Patio_num
+INNER JOIN veiculo v ON e.Veiculo_placa = v.placa
+WHERE v.placa = 'DBI-1010';
 
-SELECT COUNT(*) AS Qauntidade
-FROM veiculo 
-INNER JOIN estaciona ON veiculo.placa = estaciona.Veiculo_placa
-WHERE veiculo.cor = 'verde';
+SELECT COUNT(*) AS Quantidade
+FROM veiculo v
+INNER JOIN estaciona e ON v.placa = e.Veiculo_placa
+WHERE v.cor = 'verde';
 
-SELECT cliente.cpf, cliente.nome 
-FROM cliente 
-INNER JOIN veiculo ON cliente.cpf = veiculo.Cliente_cpf
-INNER JOIN Modelo ON veiculo.ModelocodMod = modelo.codMod
-WHERE modelo.Desc_2 LIKE 'Corolla%';
+SELECT c.cpf, c.nome 
+FROM cliente c
+INNER JOIN veiculo v ON c.cpf = v.Cliente_cpf
+INNER JOIN Modelo m ON v.ModelocodMod = m.codMod
+WHERE m.Desc_2 LIKE 'Corolla%';
 
-SELECT veiculo.placa, estaciona.hsEntrada, estaciona.hsSaida
-FROM veiculo
-INNER JOIN estaciona ON veiculo.placa = estaciona.Veiculo_placa 
-WHERE veiculo.cor = 'azul';
+SELECT v.placa, e.hsEntrada, e.hsSaida
+FROM veiculo v
+INNER JOIN estaciona e ON v.placa = e.Veiculo_placa 
+WHERE v.cor = 'azul';
 
-SELECT patio.ender, estaciona.dtEntrada, estaciona.dtSaida
-FROM patio
-INNER JOIN estaciona ON patio.num = estaciona.Patio_num
-INNER JOIN veiculo ON estaciona.Veiculo_placa = veiculo.placa
-WHERE veiculo.placa = 'ADS-2024';
+SELECT p.ender, e.dtEntrada, e.dtSaida
+FROM patio p
+INNER JOIN estaciona e ON p.num = e.Patio_num
+INNER JOIN veiculo v ON e.Veiculo_placa = v.placa
+WHERE v.placa = 'ADS-2024';
 
-SELECT cliente.nome, cliente.cpf
-FROM cliente 
-INNER JOIN veiculo ON cliente.cpf = veiculo.Cliente_cpf
-INNER JOIN estaciona ON veiculo.placa = estaciona.Veiculo_placa
-WHERE estaciona.cod = 2;
+SELECT c.nome, c.cpf
+FROM cliente c
+INNER JOIN veiculo v ON c.cpf = v.Cliente_cpf
+INNER JOIN estaciona e ON v.placa = e.Veiculo_placa
+WHERE e.cod = 2;
 
-SELECT modelo.Desc_2
-FROM modelo 
-INNER JOIN veiculo ON modelo.codMod = veiculo.Modelo_codMod 
-INNER JOIN estaciona ON veiculo.placa = estaciona.Veoculo_placa
-WHERE estaciona.cod = 10;
+SELECT m.Desc_2
+FROM modelo m 
+INNER JOIN veiculo v ON m.codMod = v.Modelo_codMod 
+INNER JOIN estaciona e ON v.placa = e.Veoculo_placa
+WHERE e.cod = 10;
 
-SELECT nome 
-FROM cliente
+SELECT c.nome 
+FROM cliente c
 WHERE MONTH(dtNasc) = MONTH(CURRENT_DATE);
 
-SELECT cliente.nome, cliente.cpf, modelo.Desc_2, veiculo.cor
-FROM cliente
-INNER JOIN veiculo ON cliente.cpf = veiculo.Cliente_cpf
-INNER JOIN modelo ON veiculo.Modelo_codMod = modelo.codMod
-INNER JOIN estaciona ON veiculo.placa = estaciona.Veiculo_placa
-WHERE estaciona.dtSaida IS NULL
-ORDER BY estaciona.dtEntrada ASC;
+SELECT c.nome, c.cpf, m.Desc_2, v.cor
+FROM cliente c
+INNER JOIN veiculo v ON c.cpf = v.Cliente_cpf
+INNER JOIN modelo m ON v.Modelo_codMod = m.codMod
+INNER JOIN estaciona e ON v.placa = e.Veiculo_placa
+WHERE e.dtSaida IS NULL
+ORDER BY e.dtEntrada ASC;
 
-SELECT patio.ender, COUNT(*) AS Total
-FROM patio
-INNER JOIN estaciona ON patio.num = estaciona.Patio_num
-INNER JOIN veiculo ON estaciona.Veiculo_placa = veiculo.placa
-WHERE estaciona.dtSaida IS NULL
-GROUP BY patio.ender;
+SELECT p.ender, COUNT(*) AS Total
+FROM patio p
+INNER JOIN estaciona e ON p.num = e.Patio_num
+INNER JOIN veiculo v ON e.Veiculo_placa = v.placa
+WHERE e.dtSaida IS NULL
+GROUP BY p.ender;
 
+SELECT p.ender, COUNT(*) AS Total
+FROM patio p 
+INNER JOIN estaciona e ON p.num = e.Patio_num
+WHERE YEAR(e.dtEntrada) = 2023
+GROUP BY p.ender;
