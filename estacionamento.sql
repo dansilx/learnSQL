@@ -130,7 +130,7 @@ WHERE estaciona.dtSaida IS NULL
 ORDER BY estaciona.dtEntrada ASC;
 
 SELECT patio.ender, COUNT(*) AS Total
-FROM partio
+FROM patio
 INNER JOIN estaciona ON patio.num = estaciona.Patio_num
 INNER JOIN veiculo ON estaciona.Veiculo_placa = veiculo.placa
 WHERE estaciona.dtSaida IS NULL
